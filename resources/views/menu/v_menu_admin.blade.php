@@ -3,8 +3,7 @@
     <div class="brand flex-column-auto" id="kt_brand">
         <!--begin::Logo-->
         <a href="#" class="brand-logo">
-            {{-- <img alt="Logo" src="{{asset('metch')}}/media/logos/logo-light.png" /> --}}
-            <span class="text-center"><i class="fab fa-angrycreative fa-4x"></i></span>
+            <img alt="Logo" src="{{asset('metch')}}/media/logos/logo-light.png" />
         </a>
         <!--end::Logo-->
         <!--begin::Toggle-->
@@ -46,10 +45,22 @@
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-section">
+                <li class="menu-item" aria-haspopup="true">
+                    <a href="#" class="menu-link">
+                        <span class="menu-icon fas fa-boxes"></span>
+                        <span class="menu-text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item" aria-haspopup="true">
+                    <a href="#" class="menu-link">
+                        <span class="menu-icon fas fa-ticket-alt"></span>
+                        <span class="menu-text">Coupons</span>
+                    </a>
+                </li>
+                {{-- <li class="menu-section">
                     <h4 class="menu-text">Custom</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                </li>
+                </li> --}}
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
@@ -63,7 +74,7 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Applications</span>
+                        <span class="menu-text">Products</span>
                         <i class="menu-arrow"></i>
                     </a>
                     <div class="menu-submenu">
@@ -76,17 +87,31 @@
                             </li>
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="/users" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Users</span>
+                                    <span class="menu-icon fas fa-users"></span>
+                                    <span class="menu-text">Customers</span>
                                     <span class="menu-label">
-                                        <span class="label label-rounded label-primary"><?= $count_user ?></span>
-                                    </span>
-                                    
-                                </a>
-                                
+                                        <span class="label label-rounded label-primary"></span>
+                                    </span>                                    
+                                </a>                                
                             </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="#" class="menu-link">
+                                    <span class="menu-icon fas fa-th"></span>
+                                    <span class="menu-text">All Products</span>
+                                </a>
+                            </li>	
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="#" class="menu-link">
+                                    <span class="menu-icon fas fa-plus-square"></span>
+                                    <span class="menu-text">Add New Products</span>
+                                </a>
+                            </li>	
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{ route('category.index') }}" class="menu-link">
+                                    <span class="menu-icon fas fa-tags"></span>
+                                    <span class="menu-text">Categories</span>
+                                </a>
+                            </li>	
                     
                         </ul>
                     </div>
@@ -94,9 +119,7 @@
             
                 <li class="menu-item" aria-haspopup="true">
                     <a href="#" class="menu-link">
-                        <span class="menu-icon fas fa-cog">
-                           
-                        </span>
+                        <span class="menu-icon fas fa-cog"></span>
                         <span class="menu-text">App Settings</span>
                     </a>
                 </li>	

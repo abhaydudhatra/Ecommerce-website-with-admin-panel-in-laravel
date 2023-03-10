@@ -1,11 +1,13 @@
+@extends('layout.main')
+@section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2>{{$title}}</h2>
+                <h2>Categories</h2>
                 <div class="d-flex flex-row-reverse"><button
                         class="btn btn-light-primary font-weight-bold mr-2 font-weight-bolder" id="createNewUser"><i
-                            class="fas fa-plus"></i>Add User</button></div>
+                            class="fas fa-plus"></i>Add Category</button></div>
             </div>
             <div class="card-body">
                 <div class="col-md-12">
@@ -15,25 +17,10 @@
                                 <tr>
                                     {{-- <th>No.</th> --}}
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Level</th>
+                                    <th>Description</th>
                                     <th style="width:90px;">Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-center">
-                                {{-- @foreach ($users as $r_users)
-                                    <tr>
-                                <td>{{$r_users->id}}</td>
-                                <td>{{$r_users->name}}</td>
-                                <td>{{$r_users->email}}</td>
-                                <td>{{$r_users->level}}</td>
-                                <td>
-                                    <div class="btn btn-success editUser" data-id="{{$r_users->id}}">Edit</div>
-                                    <div class="btn btn-danger deleteUser" data-id="{{$r_users->id}}">Delete</div>
-                                </td>
-                                </tr>
-                                @endforeach --}}
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -54,17 +41,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formUser" name="formUser">
+                <form id="c_category" name="c_category">
                     <div class="form-group">
-
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Nama"><br>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="email"><br>
-                        <select name="level" class="form-control" id="level">
-                            <option value="-">Pilih Level</option>
-                            <option value="1">Operator</option>
-                            <option value="2">Member</option>
-                        </select><br>
-                        <input type="text" name="password" class="form-control" placeholder="password"><br>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Category Name"><br>
+                        <textarea name="desc" class="form-control" id="desc" placeholder="Description" rows="3"></textarea>
                         <input type="hidden" name="user_id" id="user_id" value="">
                     </div>
                 </form>
@@ -105,23 +85,19 @@
         var table = $('#tableUser').DataTable({
             processing: false,
             serverSide: true,
-            ordering: false,
+            ordering: true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'excel', 'pdf'
             ],
-            ajax: "{{ route('users.index') }}",
+            ajax: "{{ route('category.index') }}",
             columns: [{
                     data: 'name',
                     name: 'name'
                 },
                 {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'level',
-                    name: 'level'
+                    data: 'desc',
+                    name: 'desc'
                 },
                 {
                     data: 'action',
@@ -142,19 +118,18 @@
         $('#createNewUser').click(function () {
             $('#saveBtn').val("create user");
             $('#user_id').val('');
-            $('#formUser').trigger("reset");
+            $('#c_category').trigger("reset");
             $('#modal-user').modal('show');
         });
         // initialize btn edit
         $('body').on('click', '.editUser', function () {
             var user_id = $(this).data('id');
-            $.get("{{route('users.index')}}" + '/' + user_id + '/edit', function (data) {
+            $.get("{{route('category.index')}}" + '/' + user_id + '/edit', function (data) {
                 $('#saveBtn').val("edit-user");
                 $('#modal-user').modal('show');
                 $('#user_id').val(data.id);
                 $('#name').val(data.name);
-                $('#email').val(data.email);
-                $('#level').val(data.level);
+                $('#desc').val(data.desc);
             })
         });
         // initialize btn save
@@ -163,17 +138,15 @@
             $(this).html('Save');
 
             $.ajax({
-                data: $('#formUser').serialize(),
-                url: "{{ route('users.store') }}",
+                data: $('#c_category').serialize(),
+                url: "{{ route('category.store') }}",
                 type: "POST",
                 dataType: 'json',
                 success: function (data) {
-
-                    $('#formUser').trigger("reset");
+                    $('#c_category').trigger("reset");
                     $('#modal-user').modal('hide');
                     swal_success();
                     table.draw();
-
                 },
                 error: function (data) {
                     swal_error();
@@ -198,7 +171,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "DELETE",
-                        url: "{{route('users.store')}}" + '/' + user_id,
+                        url: "{{route('category.store')}}" + '/' + user_id,
                         success: function (data) {
                             swal_success();
                             table.draw();
@@ -218,3 +191,5 @@
 
 </script>
 @endpush
+
+@endsection
